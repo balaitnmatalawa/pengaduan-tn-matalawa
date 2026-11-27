@@ -231,17 +231,24 @@ function loadStats(attempt = 1){
     if (finished) return;
     finished = true;
     cleanup();
-    document.getElementById('total').textContent = d.total ?? 0;
-    document.getElementById('belum').textContent = d.belum ?? 0;
-    document.getElementById('proses').textContent = d.proses ?? 0;
-    document.getElementById('selesai').textContent = d.selesai ?? 0;
-    document.getElementById('updated').textContent = d.updatedAt || 'Belum ada data';
-    renderBars('types', d.byType || []);
-    renderStatus(d);
-    renderRecent(d.recent || []);
-    state.textContent = 'Data berhasil diperbarui';
-    statsRequestRunning = false;
-    if (statsRefreshQueued) { statsRefreshQueued = false; setTimeout(() => loadStats(1), 250); }
+    try {
+      if (!d || typeof d !== 'object') throw new Error('Format respons statistik tidak dikenali.');
+      document.getElementById('total').textContent = d.total ?? 0;
+      document.getElementById('belum').textContent = d.belum ?? 0;
+      document.getElementById('proses').textContent = d.proses ?? 0;
+      document.getElementById('selesai').textContent = d.selesai ?? 0;
+      document.getElementById('updated').textContent = d.updatedAt || 'Belum ada data';
+      renderBars('types', Array.isArray(d.byType) ? d.byType : []);
+      renderStatus(d);
+      renderRecent(Array.isArray(d.recent) ? d.recent : []);
+      state.textContent = 'Data berhasil diperbarui';
+    } catch (err) {
+      console.error('Gagal menampilkan statistik TN Matalawa:', err);
+      state.textContent = 'Respons database diterima, tetapi gagal ditampilkan. Periksa format data statistik.';
+    } finally {
+      statsRequestRunning = false;
+      if (statsRefreshQueued) { statsRefreshQueued = false; setTimeout(() => loadStats(1), 250); }
+    }
   };
   script.onerror = retryOrFail;
   script.onload = () => {
