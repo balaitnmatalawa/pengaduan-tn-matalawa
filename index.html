@@ -244,13 +244,18 @@ function loadStats(attempt = 1){
     if (statsRefreshQueued) { statsRefreshQueued = false; setTimeout(() => loadStats(1), 250); }
   };
   script.onerror = retryOrFail;
+  script.onload = () => {
+    // JSONP harus memanggil callback. Jika file termuat tetapi callback tidak berjalan,
+    // hentikan permintaan ini dan lanjutkan mekanisme retry.
+    setTimeout(() => { if (!finished) retryOrFail(); }, 1800);
+  };
   script.src = API_URL + '?action=stats&callback=' + encodeURIComponent(callback) + '&_=' + Date.now() + '_' + requestId;
-  timeoutId = setTimeout(retryOrFail, 15000);
+  timeoutId = setTimeout(retryOrFail, 30000);
   state.textContent = attempt === 1 ? 'Menghubungkan ke database...' : 'Mencoba kembali mengambil data (' + attempt + '/3)...';
   document.body.appendChild(script);
 }
 document.getElementById('refreshStats').addEventListener('click', loadStats);
-loadStats();
+// Statistik dimuat ketika tab Dashboard dibuka, bukan saat pengguna baru membuka formulir.
 // Refresh statistik otomatis setiap 30 detik saat halaman aktif.
 setInterval(() => { if (!document.hidden && !document.getElementById('dashboard').hidden) loadStats(); }, 30000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden && !document.getElementById('dashboard').hidden) loadStats(); });
