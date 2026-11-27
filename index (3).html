@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pengaduan & Masukan | TN Matalawa</title>
+<style>
+:root{--green:#174b35;--green2:#26734d;--mint:#eaf4ee;--ink:#1c2b24;--muted:#68766e;--line:#dfe8e2;--bg:#f5f8f6;--white:#fff;--amber:#a56612}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Arial, sans-serif}
+header{background:linear-gradient(120deg,#123b2b,#28724c);color:white;padding:20px 0 18px}
+.wrap{width:100%;max-width:none;margin:0;padding:0 clamp(20px,5vw,64px)}.brand{font-size:11px;letter-spacing:1.4px;font-weight:bold;opacity:.85}
+h1{font-size:clamp(24px,3.1vw,36px);line-height:1.12;margin:7px 0 8px;white-space:normal}
+header p{max-width:none;margin:0;color:#e3eee7;font-size:14px;line-height:1.45}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tab-btn{color:white;background:transparent;border:1px solid #ffffff70;padding:10px 16px;border-radius:24px;font-size:13px;font-weight:bold;cursor:pointer}
+.tab-btn:hover{background:#ffffff18}.tab-btn.active{background:white;color:var(--green);border-color:white}
+.tab-panel[hidden]{display:none}
+main{max-width:1100px;margin:26px auto;padding:0 18px}
+.section{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 5px 18px #153b2510}
+h2{font-size:21px;margin:0 0 5px;color:var(--green)}.sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+.dashboard-title{font-size:25px;letter-spacing:.2px}.dashboard-kicker{font-size:11px;color:var(--green2);font-weight:bold;letter-spacing:1.1px;text-transform:uppercase}
+.metric strong{display:block;margin-top:5px}.metric .metric-label{font-weight:600}.metric.danger strong{color:#b54747}.metric.warning strong{color:#a56612}.metric.good strong{color:#26734d}
+.panel-title{font-size:16px;color:var(--green);margin:0 0 12px}.chart-panel{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.status-item{display:grid;grid-template-columns:150px 1fr 28px;gap:10px;align-items:center;margin:14px 0;font-size:13px}.status-track{height:13px;background:#edf2ee;border-radius:20px;overflow:hidden}.status-fill{height:100%;border-radius:20px}.fill-pending{background:#c65b52}.fill-process{background:#d69a36}.fill-done{background:#39845b}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-size:12px;background:#f7faf8} .pill{display:inline-block;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:bold}.pill.pending{background:#fae9e7;color:#a43b34}.pill.process{background:#fff2d9;color:#8a5b12}.pill.done{background:#e5f3e9;color:#21633b}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label{display:block;font-size:13px;font-weight:bold;margin:0 0 6px}
+input,select,textarea{width:100%;border:1px solid #cfdad2;border-radius:9px;padding:11px 12px;font:inherit;background:white;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}.field{margin-bottom:14px}.hint{font-size:12px;color:var(--muted);margin-top:5px}
+button{border:0;border-radius:9px;background:var(--green);color:white;font-weight:bold;padding:12px 18px;font-size:14px;cursor:pointer}
+button:hover{background:var(--green2)}button:disabled{opacity:.55;cursor:wait}
+.note{background:var(--mint);border-radius:10px;padding:12px 14px;color:#315b42;font-size:13px;margin:12px 0 18px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.metric{background:#f7faf8;border:1px solid var(--line);border-radius:12px;padding:15px}
+.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{font-size:29px;color:var(--green)}
+.chartrow{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.barline{display:grid;grid-template-columns:minmax(100px, .9fr) 2fr 30px;gap:9px;align-items:center;margin:10px 0;font-size:13px}
+.track{height:10px;border-radius:20px;background:#edf2ee;overflow:hidden}.bar{height:100%;background:#39845b;border-radius:20px}
+.status{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.status b{color:var(--ink)}.error{color:#a12626}.success{color:#17633c}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+.hp{position:absolute;left:-10000px}
+@media(max-width:700px){
+.grid,.chartrow{grid-template-columns:1fr}
+.cards{grid-template-columns:repeat(2,1fr)}
+.section{padding:17px}
+header{padding:18px 0 16px}
+.wrap{padding:0 18px}
+h1{font-size:27px;max-width:560px}
+header p{font-size:13px}
+nav{margin-top:12px}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">KEMENTERIAN KEHUTANAN · REPUBLIK INDONESIA</div>
+  <h1>Pengaduan dan Masukan Pelayanan TN Matalawa</h1>
+  <p>Sampaikan pengaduan, saran, atau apresiasi terhadap pelayanan Balai Taman Nasional Manupeu Tanah Daru dan Laiwangi Wanggameti.</p>
+  <nav role="tablist" aria-label="Menu utama">
+    <button class="tab-btn active" id="tab-form" type="button" role="tab" aria-selected="true" aria-controls="form" data-tab="form">Kirim Pengaduan</button>
+    <button class="tab-btn" id="tab-dashboard" type="button" role="tab" aria-selected="false" aria-controls="dashboard" data-tab="dashboard">Dashboard Publik</button>
+  </nav>
+</div></header>
+<main>
+<section class="section tab-panel" id="form" role="tabpanel" aria-labelledby="tab-form">
+  <h2>Formulir Pengaduan dan Masukan</h2>
+  <p class="sub">Pengisian identitas bersifat opsional. Anda dapat menyampaikan laporan secara anonim.</p>
+  <div class="note">Mohon sampaikan informasi secara jelas dan sesuai fakta. Jangan mencantumkan data pribadi pihak lain yang tidak diperlukan.</div>
+  <form id="complaintForm" method="post" target="_blank">
+    <div class="grid">
+      <div class="field"><label for="nama">Nama pelapor (opsional)</label><input id="nama" name="nama" maxlength="120" placeholder="Nama Anda"></div>
+      <div class="field"><label for="hp">Nomor HP/WhatsApp (opsional)</label><input id="hp" name="hp" maxlength="30" placeholder="Untuk keperluan klarifikasi"></div>
+      <div class="field"><label for="email">Email (opsional)</label><input id="email" name="email" type="email" maxlength="120" placeholder="nama@email.com"></div>
+      <div class="field"><label for="statusPelapor">Status pelapor</label><select id="statusPelapor" name="statusPelapor"><option>Pengunjung</option><option>Masyarakat sekitar</option><option>Mitra/Stakeholder</option><option>Lainnya</option><option>Tidak ingin menyebutkan</option></select></div>
+      <div class="field"><label for="lokasi">Lokasi pelayanan <span class="error">*</span></label><select id="lokasi" name="lokasi" required><option value="">Pilih lokasi</option><option>OWA Air Terjun Lapopu</option>
+<option>OWA Air Terjun Matayangu</option>
+<option>Birdwatching Site Tanah Daru/ Langgaliru</option>
+<option>Birdwatching Site Kambata Wundut</option>
+<option>Birdwatching Site Billa</option>
+<option>OWA Air Terjun/Danau Laputi</option>
+<option>OWA Pendakian Wanggameti</option>
+<option>Kantor Balai</option>
+<option>Kantor Seksi Wilayah</option>
+<option>Kantor Resor</option>
+<option>Lainnya</option></select></div>
+      <div class="field"><label for="jenis">Jenis pengaduan/masukan <span class="error">*</span></label><select id="jenis" name="jenis" required><option value="">Pilih kategori</option><option>Pengaduan pelayanan</option><option>Saran dan masukan</option><option>Apresiasi</option><option>Fasilitas dan sarana prasarana</option><option>Informasi dan tarif pelayanan</option><option>Perilaku petugas</option><option>Aksesibilitas dan keselamatan</option><option>Lainnya</option></select></div>
+      <div class="field"><label for="tanggalKejadian">Tanggal kejadian (jika ada)</label><input id="tanggalKejadian" name="tanggalKejadian" type="date"></div>
+    </div>
+    <div class="field"><label for="uraian">Uraian pengaduan/saran <span class="error">*</span></label><textarea id="uraian" name="uraian" required maxlength="5000" placeholder="Jelaskan kejadian, lokasi, waktu, dan hal yang perlu ditindaklanjuti..."></textarea><div class="hint">Maksimal 5.000 karakter. Untuk tahap awal, bukti foto/dokumen dapat disampaikan melalui kanal resmi Balai.</div></div>
+    <div class="hp"><label>Website</label><input name="website" tabindex="-1" autocomplete="off"></div>
+    <button id="sendBtn" type="submit">Kirim Pengaduan</button>
+    <p id="formMessage" class="hint" aria-live="polite">Setelah dikirim, tab baru akan menampilkan nomor laporan jika pengiriman berhasil.</p>
+  </form>
+</section>
+
+<section class="section tab-panel" id="dashboard" role="tabpanel" aria-labelledby="tab-dashboard" hidden>
+  <div class="dashboard-kicker">Balai Taman Nasional Manupeu Tanah Daru dan Laiwangi Wanggameti</div>
+  <h2 class="dashboard-title">MONITORING PENGADUAN TN MATALAWA</h2>
+  <p class="sub">Rekapitulasi pengaduan dan masukan pelayanan publik</p>
+  <div class="cards">
+    <div class="metric"><span class="metric-label">Total Pengaduan</span><strong id="total">0</strong></div>
+    <div class="metric danger"><span class="metric-label">Belum Ditindaklanjuti</span><strong id="belum">0</strong></div>
+    <div class="metric warning"><span class="metric-label">Dalam Proses</span><strong id="proses">0</strong></div>
+    <div class="metric good"><span class="metric-label">Selesai</span><strong id="selesai">0</strong></div>
+  </div>
+  <div class="chartrow">
+    <div class="chart-panel"><h3 class="panel-title">Grafik Pengaduan Berdasarkan Jenis</h3><div id="types" class="hint">Memuat data...</div></div>
+    <div class="chart-panel"><h3 class="panel-title">Status Penyelesaian</h3><div id="statusChart" class="hint">Memuat data...</div></div>
+  </div>
+  <div class="section" style="margin:18px 0 0;padding:16px;box-shadow:none">
+    <h3 class="panel-title">Tabel Pengaduan Terbaru</h3>
+    <div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Lokasi</th><th>Jenis</th><th>Status</th></tr></thead><tbody id="recentRows"><tr><td colspan="4" class="hint">Memuat data...</td></tr></tbody></table></div>
+  </div>
+  <div class="status" style="margin-top:16px;align-items:center"><span>Terakhir diperbarui: <b id="updated">—</b></span><span id="dataState">Menghubungkan ke database...</span><button type="button" id="refreshStats" style="padding:8px 12px;font-size:12px">Perbarui data</button></div>
+  <p class="hint">Dashboard menampilkan ringkasan dan data laporan terbatas. Identitas, kontak, serta uraian lengkap pelapor tidak dipublikasikan.</p>
+</section>
+</main>
+<footer>Balai Taman Nasional Manupeu Tanah Daru dan Laiwangi Wanggameti · TN Matalawa</footer>
+
+<script>
+/* GANTI dengan URL Web App Google Apps Script yang berakhiran /exec */
+const API_URL = "https://script.google.com/macros/s/AKfycbyWvumuxL73q1bdpIKjLpRxDR3MJzpzViuDVi0jzLArlHQsX2bbTFVEko5j_Rb91Pi0cg/exec";
+
+// Navigasi tab: hanya satu panel ditampilkan pada satu waktu.
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+function activateTab(name, updateHash=true){
+  tabPanels.forEach(panel => { panel.hidden = panel.id !== name; });
+  tabButtons.forEach(button => {
+    const active = button.dataset.tab === name;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-selected', active ? 'true' : 'false');
+    button.setAttribute('tabindex', active ? '0' : '-1');
+  });
+  if (updateHash) history.replaceState(null, '', '#' + name);
+  if (name === 'dashboard') loadStats();
+}
+tabButtons.forEach(button => button.addEventListener('click', () => activateTab(button.dataset.tab)));
+const initialTab = location.hash === '#dashboard' ? 'dashboard' : 'form';
+activateTab(initialTab, false);
+
+const form = document.getElementById('complaintForm');
+const sendBtn = document.getElementById('sendBtn');
+const formMessage = document.getElementById('formMessage');
+let submitCooldown = false;
+form.addEventListener('submit', function(e){
+  if (!form.reportValidity()) { e.preventDefault(); return; }
+  if (!API_URL.startsWith('https://script.google.com/')) {
+    e.preventDefault();
+    formMessage.textContent = 'Konfigurasi belum selesai: URL Apps Script belum dipasang.';
+    formMessage.className = 'hint error';
+    return;
+  }
+  // Native form POST in a new tab avoids hidden-iframe restrictions seen on some iOS Safari versions.
+  form.action = API_URL;
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Membuka konfirmasi...';
+  formMessage.textContent = 'Permintaan sedang dikirim. Tab baru akan menampilkan nomor laporan jika pengiriman berhasil. Jangan tutup tab konfirmasi sebelum hasilnya tampil.';
+  formMessage.className = 'hint';
+  submitCooldown = true;
+  // Do not reset the form or claim success here: success is confirmed by the Apps Script response in the new tab.
+  setTimeout(() => {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Kirim Pengaduan';
+    submitCooldown = false;
+  }, 8000);
+});
+
+
+function renderStatus(d){
+  const rows=[
+    {label:'Belum ditindaklanjuti',value:Number(d.belum)||0,cls:'fill-pending'},
+    {label:'Dalam proses',value:Number(d.proses)||0,cls:'fill-process'},
+    {label:'Selesai',value:Number(d.selesai)||0,cls:'fill-done'}
+  ];
+  const max=Math.max(Number(d.total)||0,1);
+  document.getElementById('statusChart').innerHTML=rows.map(x=>`<div class="status-item"><span>${x.label}</span><div class="status-track"><div class="status-fill ${x.cls}" style="width:${(x.value/max)*100}%"></div></div><b>${x.value}</b></div>`).join('');
+}
+function renderRecent(rows){
+  const body=document.getElementById('recentRows');
+  if(!rows||!rows.length){body.innerHTML='<tr><td colspan="4" class="hint">Belum ada pengaduan yang tercatat.</td></tr>';return;}
+  body.innerHTML=rows.map(r=>{
+    const st=String(r.status||'Belum ditindaklanjuti');
+    const cls=st.toLowerCase().includes('selesai')?'done':(st.toLowerCase().includes('proses')?'process':'pending');
+    return `<tr><td>${escapeText(r.tanggal||'-')}</td><td>${escapeText(r.lokasi||'-')}</td><td>${escapeText(r.jenis||'-')}</td><td><span class="pill ${cls}">${escapeText(st)}</span></td></tr>`;
+  }).join('');
+}
+function renderBars(target, rows){
+  const el = document.getElementById(target);
+  if (!rows || !rows.length){el.textContent='Belum ada data.';return;}
+  const max = Math.max(...rows.map(x=>Number(x.value)||0),1);
+  el.innerHTML = rows.map(x => `<div class="barline"><span>${escapeText(x.label)}</span><div class="track"><div class="bar" style="width:${Math.max(2,(x.value/max)*100)}%"></div></div><b>${Number(x.value)||0}</b></div>`).join('');
+}
+function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+let statsRequestId = 0;
+let activeStatsScript = null;
+let activeStatsTimer = null;
+let activeStatsCallback = null;
+
+function loadStats(){
+  if (!API_URL.startsWith('https://script.google.com/')) {
+    document.getElementById('dataState').textContent='Dashboard menunggu konfigurasi Google Sheets.';
+    return;
+  }
+
+  // Hentikan permintaan sebelumnya agar respons yang datang terlambat
+  // tidak bertabrakan dengan permintaan terbaru.
+  statsRequestId++;
+  const requestId = statsRequestId;
+
+  if (activeStatsTimer) {
+    clearTimeout(activeStatsTimer);
+    activeStatsTimer = null;
+  }
+  if (activeStatsScript) {
+    activeStatsScript.onerror = null;
+    activeStatsScript.remove();
+    activeStatsScript = null;
+  }
+  if (activeStatsCallback) {
+    try { delete window[activeStatsCallback]; } catch (_) {}
+    activeStatsCallback = null;
+  }
+
+  const callback = 'matalawaStatsCallback_' + requestId + '_' + Date.now();
+  activeStatsCallback = callback;
+  const state = document.getElementById('dataState');
+  state.textContent = 'Menghubungkan ke database...';
+
+  let finished = false;
+  const script = document.createElement('script');
+  activeStatsScript = script;
+
+  function cleanup(){
+    if (activeStatsTimer) {
+      clearTimeout(activeStatsTimer);
+      activeStatsTimer = null;
+    }
+    script.onerror = null;
+    script.remove();
+    if (window[callback]) {
+      try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+    }
+    if (activeStatsScript === script) activeStatsScript = null;
+    if (activeStatsCallback === callback) activeStatsCallback = null;
+  }
+
+  window[callback] = function(d){
+    if (finished) return;
+    finished = true;
+
+    // Abaikan respons lama jika pengguna sudah meminta pembaruan berikutnya.
+    if (requestId !== statsRequestId) {
+      cleanup();
+      return;
+    }
+
+    try {
+      if (!d || typeof d !== 'object' || !Object.prototype.hasOwnProperty.call(d, 'total')) {
+        throw new Error('Format data tidak sesuai');
+      }
+      document.getElementById('total').textContent = d.total ?? 0;
+      document.getElementById('belum').textContent = d.belum ?? 0;
+      document.getElementById('proses').textContent = d.proses ?? 0;
+      document.getElementById('selesai').textContent = d.selesai ?? 0;
+      document.getElementById('updated').textContent = d.updatedAt || 'Belum ada data';
+      renderBars('types', d.byType || []);
+      renderStatus(d);
+      renderRecent(d.recent || []);
+      state.textContent = 'Data berhasil diperbarui';
+    } catch (err) {
+      state.textContent = 'Data diterima, tetapi gagal ditampilkan. Tekan Perbarui data.';
+      console.error('Kesalahan membaca statistik:', err);
+    }
+    cleanup();
+  };
+
+  script.async = true;
+  script.src = API_URL + '?action=stats&callback=' + encodeURIComponent(callback) + '&_=' + Date.now();
+  script.onerror = function(){
+    if (finished || requestId !== statsRequestId) return;
+    finished = true;
+    state.textContent = 'Data belum dapat dimuat. Periksa koneksi internet atau deployment Apps Script, lalu tekan Perbarui data.';
+    cleanup();
+  };
+
+  activeStatsTimer = setTimeout(function(){
+    if (finished || requestId !== statsRequestId) return;
+    finished = true;
+    state.textContent = 'Waktu koneksi habis. Periksa internet lalu tekan Perbarui data.';
+    cleanup();
+  }, 20000);
+
+  document.body.appendChild(script);
+}
+
+document.getElementById('refreshStats').addEventListener('click', loadStats);
+// Refresh statistik otomatis setiap 30 detik saat halaman aktif.
+setInterval(() => { if (!document.hidden && !document.getElementById('dashboard').hidden) loadStats(); }, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && !document.getElementById('dashboard').hidden) loadStats(); });
+</script>
+</body></html>
