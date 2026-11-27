@@ -250,7 +250,7 @@ function loadStats(attempt = 1){
     setTimeout(() => { if (!finished) retryOrFail(); }, 1800);
   };
   // Gunakan nama callback global yang eksplisit agar pemanggilan JSONP konsisten lintas browser Android/iOS.
-  script.src = API_URL + '?action=stats&callback=' + encodeURIComponent('window.' + callback) + '&_=' + Date.now() + '_' + requestId;
+  script.src = API_URL + '?action=stats&callback=' + encodeURIComponent(callback) + '&_=' + Date.now() + '_' + requestId;
   timeoutId = setTimeout(retryOrFail, 30000);
   state.textContent = attempt === 1 ? 'Menghubungkan ke database...' : 'Mencoba kembali mengambil data (' + attempt + '/3)...';
   document.body.appendChild(script);
